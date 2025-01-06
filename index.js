@@ -32,9 +32,9 @@ app.use(express.json());
 //allow JSON data
 
 app.use(cookieParser());
-let PORT=3000;
-app.listen( PORT, () => {
-  console.log(`localhost ${PORT}!`);
+const port = process.env.PORT || 4000;
+app.listen( port, () => {
+  console.log(`localhost ${port}!`);
 });
 
 app.use("/api/user", userRouter); //api/user
