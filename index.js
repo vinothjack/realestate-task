@@ -26,7 +26,12 @@ connectDB();
 
 const app = express();
 
-app.use(cors());
+// CORS configuration
+const corsOptions = {
+  origin: 'http://localhost:3000', // Change this to your frontend URL
+  credentials: true, // Allow cookies to be sent
+};
+app.use(cors(corsOptions));
 
 app.use(express.json());
 //allow JSON data
