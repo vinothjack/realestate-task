@@ -6,7 +6,7 @@ import userRouter from "./routes/user.route.js";
 import authRouter from "./routes/auth.route.js";
 import listingRouter from "./routes/listing.route.js";
 import cookieParser from "cookie-parser";
-// import path from "path";
+import path from "path";
 
 
 dotenv.config();
@@ -37,7 +37,7 @@ app.use(express.json());
 //allow JSON data
 
 app.use(cookieParser());
-let PORT='';
+let PORT='3000';
 app.listen( PORT, () => {
   console.log(`localhost ${PORT}!`);
 });
@@ -46,11 +46,11 @@ app.use("/api/user", userRouter); //api/user
 app.use("/api/auth", authRouter); //api/auth
 app.use("/api/listing", listingRouter); //api/listing
 
-// app.use(express.static(path.join(__dirname, "/client/dist")));
+app.use(express.static(path.join(__dirname, "/client/dist")));
 
-// app.get("*", (req, res) => {
-//   res.sendFile(path.join(__dirname, "client", "dist", "index.html"));
-// });
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "client", "dist", "index.html"));
+});
 
 //Errors Handler
 app.use((err, req, res, next) => {
