@@ -26,12 +26,23 @@ connectDB();
 
 const app = express();
 
-// CORS configuration
+const allowedOrigins = [
+  'https://stunning-eclair-e2ddce.netlify.app',
+  'http://localhost:3000', // For local development
+];
+
 const corsOptions = {
-  origin: 'https://friendly-wisp-12e43c.netlify.app/', // Your frontend URL
-  credentials: true, // Allow cookies to be sent
-  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allow specific HTTP methods
-  allowedHeaders: ['Content-Type', 'Authorization'], // Specify allowed headers
+  origin: (origin, callback) => {
+    console.log('CORS Request from origin:', origin); // Log CORS requests
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
 };
 app.use(cors(corsOptions));
 
@@ -48,11 +59,10 @@ app.use("/api/user", userRouter); //api/user
 app.use("/api/auth", authRouter); //api/auth
 app.use("/api/listing", listingRouter); //api/listing
 
-// app.use(express.static(path.join(__dirname, "/client/dist")));
-
-// app.get("*", (req, res) => {
-//   res.sendFile(path.join(__dirname, "client", "dist", "index.html"));
-// });
+userRouter.get('/', (req, res) => {
+  console.log('User route hit');
+  res.json({ message: 'User data' });
+});
 
 //Errors Handler
 app.use((err, req, res, next) => {
