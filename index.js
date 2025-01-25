@@ -28,7 +28,7 @@ const app = express();
 
 // CORS configuration
 const corsOptions = {
-  origin: 'https://stunning-eclair-e2ddce.netlify.app/', // Change this to your frontend URL
+  origin: 'https://stunning-eclair-e2ddce.netlify.app', // Change this to your frontend URL
   credentials: true, // Allow cookies to be sent
 };
 app.use(cors(corsOptions));
